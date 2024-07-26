@@ -32,7 +32,7 @@ function git_push(
     enable_ssh_verbose_str = get(ENV, "JULIA_COMPATHELPER_ENABLE_SSH_VERBOSE", "false")
     enable_ssh_verbose_b = parse(Bool, enable_ssh_verbose_str)::Bool
     ssh = enable_ssh_verbose_b ? "ssh -vvvv" : "ssh"
-    git_ssh_command = isnothing(pkey_filename) ? ssh : "$(ssh) -i $pkey_filename UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+    git_ssh_command = isnothing(pkey_filename) ? ssh : "$(ssh) -i $pkey_filename -o IdentitiesOnly=yes"
 
     env2 = copy(ENV)
     env2["GIT_SSH_COMMAND"] = git_ssh_command
